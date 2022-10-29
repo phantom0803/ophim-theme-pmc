@@ -1,0 +1,32 @@
+{
+    "name": "ophimcms/theme-pmc",
+    "description": "Ophim's pmc theme",
+    "type": "library",
+    "authors": [
+        {
+            "name": "ophimcms",
+            "email": "opdlnf01@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^6|^7|^8",
+        "ckfinder/ckfinder-laravel-package": "v3.5.2.1",
+        "hacoidev/ophim-core": "^1.0.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ophim\\ThemePmc\\": "src/",
+            "Ophim\\ThemePmc\\Database\\Factories\\": "database/factories/",
+            "Ophim\\ThemePmc\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ophim\\ThemePmc\\ThemePmcServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}
