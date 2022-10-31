@@ -48,7 +48,7 @@
         <div class="clear"></div>
         <div class="film-info" itemscope itemtype="https://schema.org/Movie">
             <div class="image"
-                style="background: url({{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}) no-repeat center;background-size: cover;">
+                style="background: url({{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}) no-repeat center;background-size: cover;">
                 <img class="avatar" itemprop="image" alt="{{ $currentMovie->name }}" src="{{ $currentMovie->thumb_url }}" />
                 @if ($watch_url)
                     <a href="{{ $watch_url }}" class="icon-play"></a>
@@ -92,9 +92,9 @@
                                 {{ $currentMovie->rating_count ?? 0 }}</span> lượt)
                         </div>
                         <img class="hidden" itemprop="thumbnailUrl"
-                            src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+                            src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                             alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}"> <img class="hidden"
-                            itemprop="image" src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+                            itemprop="image" src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                             alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}">
                         <span class="hidden" itemprop="aggregateRating" itemscope
                             itemtype="https://schema.org/AggregateRating"> <span itemprop="ratingValue">5</span>
@@ -176,7 +176,7 @@
                                 function load_biplayer() {
                                     playerInstance.setup({
                                         file: "{{ $currentMovie->trailer_url }}",
-                                        image: "{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}",
+                                        image: "{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}",
                                         skin: {
                                             name: "seven",
                                             background: "transparent",
@@ -218,7 +218,7 @@
                             <span class="label"></span> <span class="label-quality">{{ $movie->publish_year }}</span>
                             <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                                 <img alt="{{ $movie->name }}" class="lazyload"
-                                    data-src="{{ $movie->poster_url ?? $movie->thumb_url }}" />
+                                    data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
                                 <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                             </a>
                         </li>

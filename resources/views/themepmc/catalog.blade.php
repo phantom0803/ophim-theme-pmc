@@ -42,7 +42,7 @@
                                 <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}"
                                     style="height: 133.875px;">
                                     <img alt="{{ $movie->name }} - {{ $movie->origin_name }}"
-                                        src="{{ $movie->poster_url ?? $movie->thumb_url }}">
+                                        src="{{ $movie->poster_url ?: $movie->thumb_url }}">
                                     <h3>{{ $movie->name }}</h3> <i class="icon-play"></i>
                                 </a>
                             </li>

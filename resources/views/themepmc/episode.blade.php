@@ -70,9 +70,9 @@
                 style="cursor: pointer; float: left; width: 200px;">
             </div>
             <span id="hint"></span>
-            <img class="hidden" itemprop="thumbnailUrl" src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+            <img class="hidden" itemprop="thumbnailUrl" src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                 alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}"> <img class="hidden" itemprop="image"
-                src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                 alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}">
             <span class="hidden" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"> <span
                     itemprop="ratingValue">5</span>
@@ -93,9 +93,9 @@
                 Tập {{$episode->name}}</h1>
             <h2 style="margin: 0px;font-size: 15px;"> <a title="{{$currentMovie->origin_name}}" href="{{$currentMovie->getUrl()}}"> {{$currentMovie->origin_name}} </a></h2>
             <img class="hidden" itemprop="thumbnailUrl"
-                src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                 alt="{{ $currentMovie->name }}-{{ $currentMovie->origin_name }}"> <img class="hidden" itemprop="image"
-                src="{{ $currentMovie->poster_url ?? $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
                 alt="{{ $currentMovie->name }}-{{ $currentMovie->origin_name }}">
             <p
                 style="padding: 4px 4px;margin: 5px 0 20px 0;line-height: 26px;font-size: 12px;color: #BBB;background: #322b2b;">
@@ -141,7 +141,7 @@
                             <span class="label"></span> <span class="label-quality">{{ $movie->publish_year }}</span>
                             <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                                 <img alt="{{ $movie->name }}" class="lazyload"
-                                    data-src="{{ $movie->poster_url ?? $movie->thumb_url }}" />
+                                    data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
                                 <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                             </a>
                         </li>
@@ -171,24 +171,25 @@
     </script>
 
     <script>
+        var episode_id = {{$episode->id}};
         const wrapper = document.getElementById('player-area');
         const vastAds = "{{ Setting::get('jwplayer_advertising_file') }}";
 
         function chooseStreamingServer(el) {
             const type = el.dataset.type;
-            const link = el.dataset.link;
+            const link = el.dataset.link.replace(/^http:\/\//i, 'https://');
             const id = el.dataset.id;
 
             const newUrl =
                 location.protocol +
                 "//" +
                 location.host +
-                location.pathname +
-                "?id=" + id;
+                location.pathname.replace(`-${episode_id}`, `-${id}`);
 
             history.pushState({
                 path: newUrl
             }, "", newUrl);
+            episode_id = id;
 
 
             Array.from(document.getElementsByClassName('streaming-server')).forEach(server => {
@@ -385,9 +386,7 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const episode = urlParams.get('id')
+            const episode = '{{$episode->id}}';
             let playing = document.querySelector(`[data-id="${episode}"]`);
             if (playing) {
                 playing.click();

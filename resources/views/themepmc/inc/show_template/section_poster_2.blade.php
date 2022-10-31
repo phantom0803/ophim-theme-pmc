@@ -12,7 +12,7 @@
             <li class="item small">
                 <span class="label"></span>
                 <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
-                    <img width="238px" height="134px" class="img-2 lazyload" alt="{{ $movie->name }} - {{ $movie->origin_name }}" data-src="{{ $movie->poster_url ?? $movie->thumb_url }}" src="" />
+                    <img width="238px" height="134px" class="img-2 lazyload" alt="{{ $movie->name }} - {{ $movie->origin_name }}" data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
                     <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                 </a>
             </li>
