@@ -15,7 +15,7 @@
                     <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                         <img width="485px" height="273px" class="img-1 lazyload"
                             alt="{{ $movie->name }} - {{ $movie->origin_name }}"
-                            data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
+                            data-src="{{ $movie->getPosterUrl() }}" />
                         <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                     </a>
                 </li>
@@ -25,8 +25,8 @@
                     <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                         <img width="238px" height="134px" class="img-2 lazyload"
                             alt="{{ $movie->name }} - {{ $movie->origin_name }}"
-                            data-src="{{ $movie->poster_url ?: $movie->thumb_url }}"
-                            src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
+                            data-src="{{ $movie->getPosterUrl() }}"
+                            src="{{ $movie->getPosterUrl() }}" />
                         <p>{{ $movie->name }}</p>
                         <i class="icon-play"></i>
                     </a>

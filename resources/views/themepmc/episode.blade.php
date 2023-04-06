@@ -64,19 +64,19 @@
         <div style="clear:both;"></div>
         <div class="box-rating">
             <input id="hint_current" type="hidden" value="">
-            <input id="score_current" type="hidden" value="{{ number_format($currentMovie->rating_star ?? 0, 1) }}">
-            <p>Đánh giá phim <span class="text">({{ number_format($currentMovie->rating_star ?? 0, 1) }}đ / {{ $currentMovie->rating_count ?? 0 }} lượt)</span></p>
-            <div id="star" data-score="{{ number_format($currentMovie->rating_star ?? 0, 1) }}"
+            <input id="score_current" type="hidden" value="{{$currentMovie->getRatingStar()}}">
+            <p>Đánh giá phim <span class="text">({{$currentMovie->getRatingStar()}}đ / {{$currentMovie->getRatingCount()}} lượt)</span></p>
+            <div id="star" data-score="{{$currentMovie->getRatingStar()}}"
                 style="cursor: pointer; float: left; width: 200px;">
             </div>
             <span id="hint"></span>
-            <img class="hidden" itemprop="thumbnailUrl" src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+            <img class="hidden" itemprop="thumbnailUrl" src="{{ $currentMovie->getPosterUrl() }}"
                 alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}"> <img class="hidden" itemprop="image"
-                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->getPosterUrl() }}"
                 alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}">
             <span class="hidden" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating"> <span
                     itemprop="ratingValue">5</span>
-                <meta itemprop="ratingcount" content="{{ $currentMovie->rating_count ?? 0 }}">
+                <meta itemprop="ratingcount" content="{{$currentMovie->getRatingCount()}}">
                 <meta itemprop="bestRating" content="10" />
                 <meta itemprop="worstRating" content="1" />
             </span>
@@ -93,9 +93,9 @@
                 Tập {{$episode->name}}</h1>
             <h2 style="margin: 0px;font-size: 15px;"> <a title="{{$currentMovie->origin_name}}" href="{{$currentMovie->getUrl()}}"> {{$currentMovie->origin_name}} </a></h2>
             <img class="hidden" itemprop="thumbnailUrl"
-                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->getPosterUrl() }}"
                 alt="{{ $currentMovie->name }}-{{ $currentMovie->origin_name }}"> <img class="hidden" itemprop="image"
-                src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+                src="{{ $currentMovie->getPosterUrl() }}"
                 alt="{{ $currentMovie->name }}-{{ $currentMovie->origin_name }}">
             <p
                 style="padding: 4px 4px;margin: 5px 0 20px 0;line-height: 26px;font-size: 12px;color: #BBB;background: #322b2b;">
@@ -141,7 +141,7 @@
                             <span class="label"></span> <span class="label-quality">{{ $movie->publish_year }}</span>
                             <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                                 <img alt="{{ $movie->name }}" class="lazyload"
-                                    data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
+                                    data-src="{{ $movie->getPosterUrl() }}" />
                                 <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                             </a>
                         </li>
@@ -260,7 +260,7 @@
                     key: "{{ Setting::get('jwplayer_license') }}",
                     aspectratio: "16:9",
                     width: "100%",
-                    image: "{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}",
+                    image: "{{ $currentMovie->getPosterUrl() }}",
                     file: link,
                     playbackRateControls: true,
                     playbackRates: [0.25, 0.75, 1, 1.25],

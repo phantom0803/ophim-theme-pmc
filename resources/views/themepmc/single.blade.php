@@ -48,8 +48,8 @@
         <div class="clear"></div>
         <div class="film-info" itemscope itemtype="https://schema.org/Movie">
             <div class="image"
-                style="background: url({{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}) no-repeat center;background-size: cover;">
-                <img class="avatar" itemprop="image" alt="{{ $currentMovie->name }}" src="{{ $currentMovie->thumb_url }}" />
+                style="background: url({{ $currentMovie->getPosterUrl() }}) no-repeat center;background-size: cover;">
+                <img class="avatar" itemprop="image" alt="{{ $currentMovie->name }}" src="{{ $currentMovie->getThumbUrl() }}" />
                 @if ($watch_url)
                     <a href="{{ $watch_url }}" class="icon-play"></a>
                 @endif
@@ -81,24 +81,24 @@
                     <div class="box-rating">
                         <input id="hint_current" type="hidden" value="">
                         <input id="score_current" type="hidden"
-                            value="{{ number_format($currentMovie->rating_star ?? 0, 1) }}">
-                        <div id="star" data-score="{{ number_format($currentMovie->rating_star ?? 0, 1) }}"
+                            value="{{$currentMovie->getRatingStar()}}">
+                        <div id="star" data-score="{{$currentMovie->getRatingStar()}}"
                             style="cursor: pointer; float: left; width: 200px;">
                         </div>
                         <span id="hint"></span>
                         <div id="div_average" style="float:left; line-height:20px; margin:0 5px; ">(<span class="average"
-                                id="average">{{ number_format($currentMovie->rating_star ?? 0, 1) }}</span> đ/<span
+                                id="average">{{$currentMovie->getRatingStar()}}</span> đ/<span
                                 id="rate_count"> /
-                                {{ $currentMovie->rating_count ?? 0 }}</span> lượt)
+                                {{$currentMovie->getRatingCount()}}</span> lượt)
                         </div>
                         <img class="hidden" itemprop="thumbnailUrl"
-                            src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+                            src="{{ $currentMovie->getPosterUrl() }}"
                             alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}"> <img class="hidden"
-                            itemprop="image" src="{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}"
+                            itemprop="image" src="{{ $currentMovie->getPosterUrl() }}"
                             alt="{{ $currentMovie->name }} {{ $currentMovie->origin_name }}">
                         <span class="hidden" itemprop="aggregateRating" itemscope
                             itemtype="https://schema.org/AggregateRating"> <span itemprop="ratingValue">5</span>
-                            <meta itemprop="ratingcount" content="{{ $currentMovie->rating_count ?? 0 }}">
+                            <meta itemprop="ratingcount" content="{{$currentMovie->getRatingCount()}}">
                             <meta itemprop="bestRating" content="10" />
                             <meta itemprop="worstRating" content="1" />
                         </span>
@@ -176,7 +176,7 @@
                                 function load_biplayer() {
                                     playerInstance.setup({
                                         file: "{{ $currentMovie->trailer_url }}",
-                                        image: "{{ $currentMovie->poster_url ?: $currentMovie->thumb_url }}",
+                                        image: "{{ $currentMovie->getPosterUrl() }}",
                                         skin: {
                                             name: "seven",
                                             background: "transparent",
@@ -218,7 +218,7 @@
                             <span class="label"></span> <span class="label-quality">{{ $movie->publish_year }}</span>
                             <a title="{{ $movie->name }} - {{ $movie->origin_name }}" href="{{ $movie->getUrl() }}">
                                 <img alt="{{ $movie->name }}" class="lazyload"
-                                    data-src="{{ $movie->poster_url ?: $movie->thumb_url }}" />
+                                    data-src="{{ $movie->getPosterUrl() }}" />
                                 <p>{{ $movie->name }}</p> <i class="icon-play"></i>
                             </a>
                         </li>
